@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -40,9 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
         contentType: MediaType('image', 'jpg'),
       ),
     );
-    // data = await http.MultipartFile.fromPath("field", _image!.path,
-    //     filename: "image.jpg");
-    // request.files.add(data);
 
     var response = await request.send();
 
@@ -68,10 +64,14 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text("Home Screen"),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Name : ${widget.user!.name}"),
-          Text("Email : ${widget.user!.email}"),
-          Text("Address : ${widget.user!.address}"),
+          Text("Name : ${widget.user!.name}",
+              style: primaryTextStyle(size: 20)),
+          Text("Email : ${widget.user!.email}",
+              style: primaryTextStyle(size: 20)),
+          Text("Address : ${widget.user!.address}",
+              style: primaryTextStyle(size: 20)),
           50.height,
           AppButton(
               text: "Upload",

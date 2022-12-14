@@ -78,6 +78,21 @@ class ContractLinking extends ChangeNotifier {
     _getUser = _contract!.function("users");
   }
 
+  addUser(EthereumAddress address, String id, String name, String email,
+      String password) async {
+    isLoading = true;
+    notifyListeners();
+    await _client!.sendTransaction(
+        _credentials,
+        Transaction.callContract(
+            contract: _contract,
+            function: _createUser,
+            parameters: [address, id, name, email, password],
+            maxGas: 1000000));
+
+    await getUserInfo(address);
+  }
+
   getUserInfo(EthereumAddress address) async {
     // Getting the current name declared in the smart contract.
     var userInfo = await _client!
@@ -89,7 +104,6 @@ class ContractLinking extends ChangeNotifier {
     return deployedName;
   }
 
-  
   Future<String> verifyPassword(EthereumAddress enroll) async {
     var deployedName = await getUserInfo(enroll);
     // print("deployed name : ${deployedName[2]}");
@@ -119,18 +133,4 @@ class ContractLinking extends ChangeNotifier {
   //   return publicArray;
   // }
 
-  addUser(EthereumAddress address, String id, String name, String email,
-      String password) async {
-    isLoading = true;
-    notifyListeners();
-    await _client!.sendTransaction(
-        _credentials,
-        Transaction.callContract(
-            contract: _contract,
-            function: _createUser,
-            parameters: [address, id, name, email, password],
-            maxGas: 1000000));
-
-    await getUserInfo(address);
-  }
 }

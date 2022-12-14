@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Tutorial App",
-        home: LogInScreen(),
+        home: SignUpScreen(),
       ),
     );
   }
